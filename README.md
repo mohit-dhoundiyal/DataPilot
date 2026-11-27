@@ -2,7 +2,7 @@
 
 # 📊 DataPilot: AI-Assisted Data Analytics Platform
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://datapilot-ai-analytics.streamlit.app/AI_Analyst)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://datapilot-ai-analytics.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/)
 [![Google Gemini](https://img.shields.io/badge/Google%20Gemini-3.5%20Flash--Lite-orange.svg)](https://ai.google.dev/)
 [![Plotly](https://img.shields.io/badge/Visualization-Plotly-brightgreen.svg)](https://plotly.com/)
@@ -10,7 +10,7 @@
 
 **An intelligent end-to-end data exploration, profiling, cleaning, and analytics platform powered by Python, Streamlit, and Google Gemini AI.**
 
-🚀 **Live Demo:** [datapilot-ai-analytics.streamlit.app/AI_Analyst](https://datapilot-ai-analytics.streamlit.app/AI_Analyst)
+🚀 **Live Demo:** [datapilot-ai-analytics.streamlit.app](https://datapilot-ai-analytics.streamlit.app/)
 
 [Key Features](#-key-features) • [Architecture](#-architecture) • [Getting Started](#-getting-started) • [Tech Stack](#-tech-stack) • [Project Structure](#-project-structure)
 
