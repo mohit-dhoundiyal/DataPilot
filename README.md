@@ -4,7 +4,7 @@
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://datapilot-ai-analytics.streamlit.app/AI_Analyst)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/)
-[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-1.5%20Flash-orange.svg)](https://ai.google.dev/)
+[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-3.5%20Flash--Lite-orange.svg)](https://ai.google.dev/)
 [![Plotly](https://img.shields.io/badge/Visualization-Plotly-brightgreen.svg)](https://plotly.com/)
 [![License](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
@@ -122,7 +122,7 @@ flowchart LR
    Create a file at `.streamlit/secrets.toml`:
    ```toml
    GEMINI_API_KEY = "your-google-gemini-api-key"
-   GEMINI_MODEL = "gemini-1.5-flash"
+   GEMINI_MODEL = "gemini-3.5-flash-lite"
    ```
 
 5. **Run the application:**

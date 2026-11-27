@@ -207,7 +207,7 @@ def ask_gemini(question, profile, analysis, history=None):
     from google import genai
     client = genai.Client(api_key=api_key)
     cfg_model = st.secrets.get("GEMINI_MODEL") if hasattr(st, "secrets") else None
-    model_name = cfg_model or os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    model_name = cfg_model or os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
     prompt = f"""
 You are DataPilot, a careful senior data analyst.
 Answer the user's question using ONLY the supplied dataset profile and calculated analysis.

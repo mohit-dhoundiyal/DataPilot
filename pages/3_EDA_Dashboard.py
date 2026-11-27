@@ -274,7 +274,7 @@ def find_model():
             return st.secrets["GEMINI_MODEL"]
     except Exception:
         pass
-    return os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    return os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
 
 
 mode = st.sidebar.radio("Chart layout", ["Smart rules (instant)", "✨ Gemini designer"], key="dash_mode",

@@ -14,7 +14,7 @@ def get_model_name():
             return m
     except Exception:
         pass
-    return os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    return os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
 
 
 def get_api_key():
