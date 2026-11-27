@@ -229,21 +229,9 @@ RECENT CONVERSATION:
 USER QUESTION:
 {question}
 """
-    candidate_models = [model_name]
-    for fb in ["gemini-1.5-flash", "gemini-2.0-flash"]:
-        if fb not in candidate_models:
-            candidate_models.append(fb)
-    last_err = None
-    for m in candidate_models:
-        try:
-            response = client.models.generate_content(model=m, contents=prompt)
-            if response and response.text:
-                return response.text
-        except Exception as exc:
-            last_err = exc
-            continue
-    if last_err:
-        raise last_err
+    response = client.models.generate_content(model=model_name, contents=prompt)
+    if response and response.text:
+        return response.text
     return "Gemini returned an empty response."
 
 def dataset_fingerprint(data):

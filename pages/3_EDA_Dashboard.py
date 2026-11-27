@@ -305,7 +305,7 @@ if mode.startswith("✨"):
             if "429" in msg or "quota" in msg.lower():
                 st.sidebar.warning("Free-tier quota limit reached. Using the smart-rules layout instead.")
             elif "404" in msg or "not found" in msg.lower():
-                st.sidebar.warning(f"Model not found. Please set GEMINI_MODEL = 'gemini-1.5-flash' in Secrets.")
+                st.sidebar.warning("Model not found. Please check GEMINI_MODEL in Secrets.")
             else:
                 st.sidebar.warning(f"Gemini call failed ({msg[:60]}). Using smart-rules layout instead.")
     if gem_store.get("sig") == sig:

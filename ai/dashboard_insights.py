@@ -276,25 +276,15 @@ PROFILE:
 CANDIDATES:
 {candidates_json}
 """
-    candidate_models = [get_model_name()]
-    for fb in ["gemini-1.5-flash", "gemini-2.0-flash"]:
-        if fb not in candidate_models:
-            candidate_models.append(fb)
-    last_err = None
-    for m in candidate_models:
-        try:
-            response = client.models.generate_content(
-                model=m,
-                contents=prompt,
-                config={"temperature": 0.15, "max_output_tokens": 1800,
-                        "response_mime_type": "application/json"},
-            )
-            if response and response.text:
-                return json.loads(response.text)
-        except Exception as e:
-            last_err = e
-            continue
-    raise last_err or RuntimeError("Gemini returned an empty dashboard plan.")
+    response = client.models.generate_content(
+        model=get_model_name(),
+        contents=prompt,
+        config={"temperature": 0.15, "max_output_tokens": 1800,
+                "response_mime_type": "application/json"},
+    )
+    if response and response.text:
+        return json.loads(response.text)
+    raise RuntimeError("Gemini returned an empty dashboard plan.")
 
 
 def generate_dashboard_plan(profile, candidates):
