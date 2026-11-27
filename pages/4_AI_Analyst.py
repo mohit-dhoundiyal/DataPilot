@@ -206,7 +206,8 @@ def ask_gemini(question, profile, analysis, history=None):
         )
     from google import genai
     client = genai.Client(api_key=api_key)
-    model_name = "gemini-3.5-flash-lite"
+    cfg_model = st.secrets.get("GEMINI_MODEL") if hasattr(st, "secrets") else None
+    model_name = cfg_model or os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
     prompt = f"""
 You are DataPilot, a careful senior data analyst.
 Answer the user's question using ONLY the supplied dataset profile and calculated analysis.
@@ -228,8 +229,22 @@ RECENT CONVERSATION:
 USER QUESTION:
 {question}
 """
-    response = client.models.generate_content(model=model_name, contents=prompt)
-    return response.text or "Gemini returned an empty response."
+    candidate_models = [model_name]
+    for fb in ["gemini-1.5-flash", "gemini-2.0-flash"]:
+        if fb not in candidate_models:
+            candidate_models.append(fb)
+    last_err = None
+    for m in candidate_models:
+        try:
+            response = client.models.generate_content(model=m, contents=prompt)
+            if response and response.text:
+                return response.text
+        except Exception as exc:
+            last_err = exc
+            continue
+    if last_err:
+        raise last_err
+    return "Gemini returned an empty response."
 
 def dataset_fingerprint(data):
     meta = f"{data.shape}|{list(data.columns)}|{list(map(str, data.dtypes))}|{int(data.isna().sum().sum())}"

@@ -7,7 +7,14 @@ import pandas as pd
 import streamlit as st
 from google import genai
 
-MODEL_NAME = "gemini-3.5-flash-lite"
+def get_model_name():
+    try:
+        m = st.secrets.get("GEMINI_MODEL", "")
+        if m:
+            return m
+    except Exception:
+        pass
+    return os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
 
 
 def get_api_key():
@@ -269,15 +276,25 @@ PROFILE:
 CANDIDATES:
 {candidates_json}
 """
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=prompt,
-        config={"temperature": 0.15, "max_output_tokens": 1800,
-                "response_mime_type": "application/json"},
-    )
-    if not response.text:
-        raise RuntimeError("Gemini returned an empty dashboard plan.")
-    return json.loads(response.text)
+    candidate_models = [get_model_name()]
+    for fb in ["gemini-1.5-flash", "gemini-2.0-flash"]:
+        if fb not in candidate_models:
+            candidate_models.append(fb)
+    last_err = None
+    for m in candidate_models:
+        try:
+            response = client.models.generate_content(
+                model=m,
+                contents=prompt,
+                config={"temperature": 0.15, "max_output_tokens": 1800,
+                        "response_mime_type": "application/json"},
+            )
+            if response and response.text:
+                return json.loads(response.text)
+        except Exception as e:
+            last_err = e
+            continue
+    raise last_err or RuntimeError("Gemini returned an empty dashboard plan.")
 
 
 def generate_dashboard_plan(profile, candidates):

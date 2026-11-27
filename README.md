@@ -2,13 +2,15 @@
 
 # 📊 DataPilot: AI-Assisted Data Analytics Platform
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://datapilot.streamlit.app)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://datapilot-ai-analytics.streamlit.app/AI_Analyst)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/)
-[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-2.5%20Flash-orange.svg)](https://ai.google.dev/)
+[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-1.5%20Flash-orange.svg)](https://ai.google.dev/)
 [![Plotly](https://img.shields.io/badge/Visualization-Plotly-brightgreen.svg)](https://plotly.com/)
 [![License](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
 **An intelligent end-to-end data exploration, profiling, cleaning, and analytics platform powered by Python, Streamlit, and Google Gemini AI.**
+
+🚀 **Live Demo:** [datapilot-ai-analytics.streamlit.app/AI_Analyst](https://datapilot-ai-analytics.streamlit.app/AI_Analyst)
 
 [Key Features](#-key-features) • [Architecture](#-architecture) • [Getting Started](#-getting-started) • [Tech Stack](#-tech-stack) • [Project Structure](#-project-structure)
 
@@ -120,7 +122,7 @@ flowchart LR
    Create a file at `.streamlit/secrets.toml`:
    ```toml
    GEMINI_API_KEY = "your-google-gemini-api-key"
-   GEMINI_MODEL = "gemini-2.5-flash"
+   GEMINI_MODEL = "gemini-1.5-flash"
    ```
 
 5. **Run the application:**

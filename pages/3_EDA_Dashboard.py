@@ -274,7 +274,7 @@ def find_model():
             return st.secrets["GEMINI_MODEL"]
     except Exception:
         pass
-    return os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    return os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
 
 
 mode = st.sidebar.radio("Chart layout", ["Smart rules (instant)", "✨ Gemini designer"], key="dash_mode",
@@ -302,8 +302,12 @@ if mode.startswith("✨"):
                 gem_store = st.session_state["dash_gemini_plan"]
         except Exception as e:  # quota, network, bad JSON...
             msg = str(e)
-            st.sidebar.warning(("Free-tier limit reached. " if "429" in msg or "quota" in msg.lower() else "Gemini call failed. ")
-                               + "Using the smart-rules layout instead.")
+            if "429" in msg or "quota" in msg.lower():
+                st.sidebar.warning("Free-tier quota limit reached. Using the smart-rules layout instead.")
+            elif "404" in msg or "not found" in msg.lower():
+                st.sidebar.warning(f"Model not found. Please set GEMINI_MODEL = 'gemini-1.5-flash' in Secrets.")
+            else:
+                st.sidebar.warning(f"Gemini call failed ({msg[:60]}). Using smart-rules layout instead.")
     if gem_store.get("sig") == sig:
         plan = gem_store["plan"]
         st.sidebar.success("Layout designed by Gemini")

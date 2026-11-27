@@ -392,10 +392,22 @@ def parse_json(text: str):
 def call_gemini(api_key: str, model: str, prompt: str) -> str:
     from google import genai
     client = genai.Client(api_key=api_key)
-    r = client.models.generate_content(
-        model=model, contents=prompt,
-        config={"response_mime_type": "application/json", "temperature": 0.2})
-    return r.text
+    candidate_models = [model] if model else []
+    for fb in ["gemini-1.5-flash", "gemini-2.0-flash"]:
+        if fb not in candidate_models:
+            candidate_models.append(fb)
+    last_err = None
+    for m in candidate_models:
+        try:
+            r = client.models.generate_content(
+                model=m, contents=prompt,
+                config={"response_mime_type": "application/json", "temperature": 0.2})
+            if r and r.text:
+                return r.text
+        except Exception as e:
+            last_err = e
+            continue
+    raise last_err or RuntimeError("No response from Gemini API.")
 
 
 def validate_plan(raw: dict, df, metrics, dims, dates, periods, fallback: dict):
